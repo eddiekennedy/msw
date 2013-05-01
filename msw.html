@@ -58,15 +58,15 @@
   <script>
     $(function() {
       
-      var spotId = 369;
-      var apiUrl = 'http://magicseaweed.com/api/' + apiKey + '/forecast/?spot_id=' + spotId;
+      //var spotId = 369;
+      //var apiUrl = 'http://magicseaweed.com/api/' + apiKey + '/forecast/?spot_id=' + spotId;
       var list = $('<ul/>');
       $.getJSON( 'the-wall.json', function(data) {
         $.each( data, function( i, report ) {
           var listItem = [
             '<li>',
               '<div>' + formatTimestamp( report.localTimestamp ) +'</div>',
-              '<div class="height">' + report.swell.minBreakingHeight + '-' + report.swell.maxBreakingHeight + report.swell.unit + '</div>',
+              '<div class="height">' + report.swell.minBreakingHeight + '-' + report.swell.maxBreakingHeight + report.swell.unit + ' at ' + report.swell.components.combined.period + 's [' + report.swell.components.combined.compassDirection + ']</div>',
               '<div class="stars">',
                 '<div class="star-x-' + report.solidRating +'"></div>',
                 '<div class="star-x-' + report.fadedRating +' fade"></div>',
