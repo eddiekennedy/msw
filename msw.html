@@ -6,16 +6,23 @@
 <head>
   <meta charset="utf-8">
   <style>
+    body {
+      font-family: sans-serif;
+      color: #333;
+    }
+    li {
+      clear: both;
+    }
+    .height {
+      xfloat: left;
+    }
     .stars {
-      position: relative;
-      height: 50px;
+      xfloat: left;
     }
     .stars div {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 100;
+      float: left;
       color: #16a085;
+      letter-spacing: 3px;
     }
     .star-x-1:after {
       display: block;
@@ -23,19 +30,19 @@
     }
     .star-x-2:after {
       display: block;
-      content: "★ ★";
+      content: "★★";
     }
     .star-x-3:after {
       display: block;
-      content: "★ ★ ★";
+      content: "★★★";
     }
     .star-x-4:after {
       display: block;
-      content: "★ ★ ★ ★";
+      content: "★★★★";
     }
     .star-x-5:after {
       display: block;
-      content: "★ ★ ★ ★ ★";
+      content: "★★★★★";
     }
     div.fade {
       z-index: 0;
@@ -59,7 +66,7 @@
           var listItem = [
             '<li>',
               '<div>' + formatTimestamp( report.localTimestamp ) +'</div>',
-              '<div>' + report.swell.minBreakingHeight + '-' + report.swell.maxBreakingHeight + report.swell.unit + '</div>',
+              '<div class="height">' + report.swell.minBreakingHeight + '-' + report.swell.maxBreakingHeight + report.swell.unit + '</div>',
               '<div class="stars">',
                 '<div class="star-x-' + report.solidRating +'"></div>',
                 '<div class="star-x-' + report.fadedRating +' fade"></div>',
