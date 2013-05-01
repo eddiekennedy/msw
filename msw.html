@@ -93,59 +93,73 @@ linear-gradient(rgba(255, 255, 255, .2) 80%, transparent 80%, transparent);
 
 </head>
 <body>
-  <h2>The Wall</h2>
-  <div id="report"></div>
+  <div id="reports"></div>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
   <script>
     $(function() {
-      
-      //var spotId = 369;
-      //var apiUrl = 'http://magicseaweed.com/api/' + apiKey + '/forecast/?spot_id=' + spotId;
-      var list = $('<ul/>');
-      $.getJSON( 'the-wall.json', function(data) {
-        $.each( data, function( i, report ) {
-          var listItem = [
-            '<li>',
-              //'<div>' + formatTimestamp( report.localTimestamp ) +'</div>',
-              // '<div class="stars">',
-              //   '<div class="star-x-' + report.solidRating +'"></div>',
-              //   '<div class="star-x-' + report.fadedRating +' fade"></div>',
-              // '</div>',
-              '<div class="chart">',
-                '<div class="stars">',
-                  '<div class="star-x-' + report.fadedRating +' fade"></div>',
-                  '<div class="star-x-' + report.solidRating +'"></div>',
+      var spots = [
+        {
+          id: 369,
+          name: 'The Wall'
+        },
+        {
+          id: 371,
+          name: 'Nantasket'
+        }
+      ];
+      var apiKey = '';
+      $.each( spots, function( i, spot ) {
+        var spotId = spot.id;
+        var apiUrl = 'http://magicseaweed.com/api/' + apiKey + '/forecast/?spot_id=' + spotId;
+        var reportMarkup = $('<div class="report"/>');
+        var list = $('<ul/>');
+        reportMarkup.append('<h2>' + spot.name + '</h2>');
+        $.getJSON( apiUrl, function(data) {
+          $.each( data, function( i, report ) {
+            var listItem = [
+              '<li>',
+                //'<div>' + formatTimestamp( report.localTimestamp ) +'</div>',
+                // '<div class="stars">',
+                //   '<div class="star-x-' + report.solidRating +'"></div>',
+                //   '<div class="star-x-' + report.fadedRating +' fade"></div>',
+                // '</div>',
+                '<div class="chart">',
+                  '<div class="stars">',
+                    '<div class="star-x-' + report.fadedRating +' fade"></div>',
+                    '<div class="star-x-' + report.solidRating +'"></div>',
+                  '</div>',
                 '</div>',
-              '</div>',
-              '<div class="height">' + report.swell.minBreakingHeight + '-' + report.swell.maxBreakingHeight + report.swell.unit + '</div>',
-              '<div class="period">' + report.swell.components.combined.period + 's</div>',
-            '</li>'
-          ].join('');
-          list.append( listItem );
-          console.log(report);
+                '<div class="height">' + report.swell.minBreakingHeight + '-' + report.swell.maxBreakingHeight + report.swell.unit + '</div>',
+                '<div class="period">' + report.swell.components.combined.period + 's</div>',
+              '</li>'
+            ].join('');
+            list.append( listItem );
+            console.log(report);
+          });
+          reportMarkup.append( list );
+          $('#reports').append( reportMarkup );
         });
-        $('#report').append( list );
-        //
-        function formatTimestamp( timestamp ) {
-          var newDate = new Date ( timestamp * 1000),
-              weekday = newDate.toString().substr(0,3),
-              day = newDate.getDate(),
-              month = parseInt( newDate.getMonth(), 0 ) + 1,
-              year = newDate.getFullYear().toString().substr(2, 2),
-              hours = newDate.getHours(),
-              minutes = newDate.getMinutes();
-              // Adjust hours / add am or pm
-              amOrPm = hours < 12 ? "AM" : "PM";
-              hours = hours < 12 ? hours : hours - 12;
-              hours = hours === 0 ? 12 : hours;
-              // Tack a zero on, if needed
-              day = day < 10 ? "0" + day : day;
-              month = month < 10 ? "0" + month : month;
-              minutes = minutes < 10 ? "0" + minutes : minutes;
-          return month + "/" + day + "/" + year + " at " + hours + ":" + minutes + amOrPm;
-        };
       });
     });
+    //
+    function formatTimestamp( timestamp ) {
+      var newDate = new Date ( timestamp * 1000),
+          weekday = newDate.toString().substr(0,3),
+          day = newDate.getDate(),
+          month = parseInt( newDate.getMonth(), 0 ) + 1,
+          year = newDate.getFullYear().toString().substr(2, 2),
+          hours = newDate.getHours(),
+          minutes = newDate.getMinutes();
+          // Adjust hours / add am or pm
+          amOrPm = hours < 12 ? "AM" : "PM";
+          hours = hours < 12 ? hours : hours - 12;
+          hours = hours === 0 ? 12 : hours;
+          // Tack a zero on, if needed
+          day = day < 10 ? "0" + day : day;
+          month = month < 10 ? "0" + month : month;
+          minutes = minutes < 10 ? "0" + minutes : minutes;
+      return month + "/" + day + "/" + year + " at " + hours + ":" + minutes + amOrPm;
+    };
   </script>
 </body>
 </html>
