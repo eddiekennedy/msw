@@ -4,6 +4,30 @@
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
+  <meta charset="utf-8">
+  <style>
+    .star-x-1:after {
+      display: block;
+      content: "★";
+    }
+    .star-x-2:after {
+      display: block;
+      content: "★ ★";
+    }
+    .star-x-3:after {
+      display: block;
+      content: "★ ★ ★";
+    }
+    .star-x-4:after {
+      display: block;
+      content: "★ ★ ★ ★";
+    }
+    .star-x-5:after {
+      display: block;
+      content: "★ ★ ★ ★ ★";
+    }
+  </style>
+
 </head>
 <body>
   <div id="report"></div>
@@ -20,6 +44,7 @@
             '<li>',
               '<div>' + formatTimestamp( report.timestamp ) +'</div>',
               '<div>' + report.swell.minBreakingHeight + '-' + report.swell.maxBreakingHeight + report.swell.unit + '</div>',
+              '<div class="star-x-' + report.solidRating +'"></div>',
               //'<div><img src="' + report.charts.period +'"/></div>',
               //'<div><img src="' + report.charts.pressure +'"/></div>',
               //'<div><img src="' + report.charts.sst +'"/></div>',
