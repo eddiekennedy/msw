@@ -6,6 +6,17 @@
 <head>
   <meta charset="utf-8">
   <style>
+    .stars {
+      position: relative;
+      height: 50px;
+    }
+    .stars div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      color: #16a085;
+    }
     .star-x-1:after {
       display: block;
       content: "★";
@@ -26,10 +37,15 @@
       display: block;
       content: "★ ★ ★ ★ ★";
     }
+    div.fade {
+      z-index: 0;
+      opacity: .5;
+    }
   </style>
 
 </head>
 <body>
+  <h2>The Wall</h2>
   <div id="report"></div>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
   <script>
@@ -42,9 +58,12 @@
         $.each( data, function( i, report ) {
           var listItem = [
             '<li>',
-              '<div>' + formatTimestamp( report.timestamp ) +'</div>',
+              '<div>' + formatTimestamp( report.localTimestamp ) +'</div>',
               '<div>' + report.swell.minBreakingHeight + '-' + report.swell.maxBreakingHeight + report.swell.unit + '</div>',
-              '<div class="star-x-' + report.solidRating +'"></div>',
+              '<div class="stars">',
+                '<div class="star-x-' + report.solidRating +'"></div>',
+                '<div class="star-x-' + report.fadedRating +' fade"></div>',
+              '</div>',
               //'<div><img src="' + report.charts.period +'"/></div>',
               //'<div><img src="' + report.charts.pressure +'"/></div>',
               //'<div><img src="' + report.charts.sst +'"/></div>',
