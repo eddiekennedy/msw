@@ -1,0 +1,57 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+</head>
+<body>
+  <div id="report"></div>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <script>
+    $(function() {
+      var apiKey = '2jpe5mfEbCLG5Yj9Gq399Zsj9GyGBmCz';
+      var spotId = 369;
+      var apiUrl = 'http://magicseaweed.com/api/' + apiKey + '/forecast/?spot_id=' + spotId;
+      var list = $('<ul/>');
+      $.getJSON( 'the-wall.json', function(data) {
+        $.each( data, function( i, report ) {
+          var listItem = [
+            '<li>',
+              '<div>' + formatTimestamp( report.timestamp ) +'</div>',
+              '<div>' + report.swell.minBreakingHeight + '-' + report.swell.maxBreakingHeight + report.swell.unit + '</div>',
+              //'<div><img src="' + report.charts.period +'"/></div>',
+              //'<div><img src="' + report.charts.pressure +'"/></div>',
+              //'<div><img src="' + report.charts.sst +'"/></div>',
+              //'<div><img src="' + report.charts.swell +'"/></div>',
+              //'<div><img src="' + report.charts.wind +'"/></div>',
+            '</li>'
+          ].join('');
+          list.append( listItem );
+          console.log(report);
+        });
+        $('#report').append( list );
+        //
+        function formatTimestamp( timestamp ) {
+          var newDate = new Date ( timestamp * 1000),
+              weekday = newDate.toString().substr(0,3),
+              day = newDate.getDate(),
+              month = parseInt( newDate.getMonth(), 0 ) + 1,
+              year = newDate.getFullYear().toString().substr(2, 2),
+              hours = newDate.getHours(),
+              minutes = newDate.getMinutes();
+              // Adjust hours / add am or pm
+              amOrPm = hours < 12 ? "AM" : "PM";
+              hours = hours < 12 ? hours : hours - 12;
+              hours = hours === 0 ? 12 : hours;
+              // Tack a zero on, if needed
+              day = day < 10 ? "0" + day : day;
+              month = month < 10 ? "0" + month : month;
+              minutes = minutes < 10 ? "0" + minutes : minutes;
+          return month + "/" + day + "/" + year + " at " + hours + ":" + minutes + amOrPm;
+        };
+      });
+    });
+  </script>
+</body>
+</html>
