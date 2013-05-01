@@ -7,42 +7,76 @@
   <meta charset="utf-8">
   <style>
     body {
+      margin: 0;
+      padding: 0;
       font-family: sans-serif;
       color: #333;
     }
-    li {
+    h2 {
+      margin: 0;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    ul:after {
+      display: block;
+      content: " ";
       clear: both;
+    }
+    li {
+      display: inline-block;
+      width: 2.5%;
+      background: #ddd;
+      border-top: 1px solid #eee;
+      border-bottom: 5px solid #eee;
+      position: relative;
+      height: 105px;
+      
+background-color: #ddd;
+background-image: 
+linear-gradient(rgba(255, 255, 255, .5) 20%, transparent 20%, transparent),
+linear-gradient(rgba(255, 255, 255, .4) 40%, transparent 40%, transparent),
+linear-gradient(rgba(255, 255, 255, .3) 60%, transparent 60%, transparent),
+linear-gradient(rgba(255, 255, 255, .2) 80%, transparent 80%, transparent);
+
     }
     .height {
       xfloat: left;
+      font-size: 10px;
     }
     .stars {
       xfloat: left;
+      position: absolute;
+      bottom: 0;
     }
     .stars div {
-      float: left;
-      color: #16a085;
-      letter-spacing: 3px;
+      xfloat: left;
+      color: #999;
+      font-size: 18px;
+      line-height: 21px;
+      white-space: pre;
     }
     .star-x-1:after {
       display: block;
-      content: "★";
+      content: "◉";
+      
     }
     .star-x-2:after {
       display: block;
-      content: "★★";
+      content: "◉\A◉";
     }
     .star-x-3:after {
       display: block;
-      content: "★★★";
+      content: "◉\A◉\A◉";
     }
     .star-x-4:after {
       display: block;
-      content: "★★★★";
+      content: "◉\A◉\A◉\A◉";
     }
     .star-x-5:after {
       display: block;
-      content: "★★★★★";
+      content: "◉\A◉\A◉\A◉\A◉";
     }
     div.fade {
       z-index: 0;
@@ -65,17 +99,16 @@
         $.each( data, function( i, report ) {
           var listItem = [
             '<li>',
-              '<div>' + formatTimestamp( report.localTimestamp ) +'</div>',
-              '<div class="height">' + report.swell.minBreakingHeight + '-' + report.swell.maxBreakingHeight + report.swell.unit + ' at ' + report.swell.components.combined.period + 's [' + report.swell.components.combined.compassDirection + ']</div>',
+              //'<div>' + formatTimestamp( report.localTimestamp ) +'</div>',
+              // '<div class="stars">',
+              //   '<div class="star-x-' + report.solidRating +'"></div>',
+              //   '<div class="star-x-' + report.fadedRating +' fade"></div>',
+              // '</div>',
               '<div class="stars">',
-                '<div class="star-x-' + report.solidRating +'"></div>',
                 '<div class="star-x-' + report.fadedRating +' fade"></div>',
+                '<div class="star-x-' + report.solidRating +'"></div>',
               '</div>',
-              //'<div><img src="' + report.charts.period +'"/></div>',
-              //'<div><img src="' + report.charts.pressure +'"/></div>',
-              //'<div><img src="' + report.charts.sst +'"/></div>',
-              //'<div><img src="' + report.charts.swell +'"/></div>',
-              //'<div><img src="' + report.charts.wind +'"/></div>',
+              //'<div class="height">' + report.swell.minBreakingHeight + '-' + report.swell.maxBreakingHeight + report.swell.unit + ' at ' + report.swell.components.combined.period + 's [' + report.swell.components.combined.compassDirection + ']</div>',
             '</li>'
           ].join('');
           list.append( listItem );
